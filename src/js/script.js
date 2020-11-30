@@ -19,6 +19,12 @@ class MovieDB{
 
         this.totalFilm = 8;
 
+        this.largeurAffiche = ["w92", "w154", "w185", "w342", "w500", "w780"];
+
+        this.largeurTeteAffiche = ["w45", "w185"];
+
+        this.largeurToileFond = ["w300", "w780", "w1280"];
+
     }
 
     requeteDernierFilm(){
@@ -46,8 +52,23 @@ class MovieDB{
     }
 
     afficheDernierFilm(data){
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < this.totalFilm; i++) {
             console.log(data[i].title);
+
+            let unArticle = document.querySelector(".template>article.film").cloneNode(true);
+
+            unArticle.querySelector("h2").innerHTML = data[i].title;
+
+            unArticle.querySelector(".description").innerHTML = data[i].overview || "Aucune description";
+
+            let src = this.imgPath + "w185" + data[i].poster_path;
+
+            let uneImage = unArticle.querySelector("img");
+
+            uneImage.setAttribute("src", src);
+            uneImage.setAttribute("alt", data[i].title);
+
+            document.querySelector(".liste-films").appendChild(unArticle);
         }
     }
 
